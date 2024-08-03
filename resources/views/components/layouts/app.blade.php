@@ -31,6 +31,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
             </div>
             <div class="d-flex">
+                <a href="/" class="btn btn-secondary float-end-me-3 ms-3" target="_blank"><i class="bi-list"></i> Recipe List</a>
                 <a href="https://www.hellofresh.com.au/recipes/search?q=" class="btn btn-secondary float-end-me-3 ms-3" target="_blank"><i class="bi-search"></i> Search Recipes</a>
                 <a href="/download" class="btn btn-primary float-end me-3 ms-3"><i class="bi-cloud-plus-fill"></i> Download Recipe</a>
             </div>
