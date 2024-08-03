@@ -12,7 +12,7 @@ class RecipeDownloader extends Component
 {
 
     #[Url]
-    public $url = 'https://www.hellofresh.com.au/recipes/golden-haloumi-and-lime-couscous-66849ad89b6d1c18ac617ade';
+    public $url = '';
     public $recipe;
     public $search = 'Test';
 
