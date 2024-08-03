@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        @foreach($recipes as $recipe)
+        @forelse($recipes as $recipe)
         <div class="col-3">
             <div class="card">
                 <img src="{{ $recipe->image_url }}" class="card-img-top img-fluid">
@@ -12,7 +12,12 @@
                 </div>
             </div>
         </div>
-        @endforeach
+        @empty
+            <div class="text-center">
+                <h1>No Recipes have been added yet!</h1>
+                <p>Click on "<i class="bi-search"></i> Search Recipes" to find one, or "<i class="bi-cloud-plus-fill"></i> Download Recipe" to learn how to download a recipe</p>
+            </div>
+        @endforelse
     </div>
 </div>
 </div>
