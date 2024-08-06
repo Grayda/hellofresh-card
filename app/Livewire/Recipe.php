@@ -6,8 +6,6 @@ use App\Models\Recipe as ModelsRecipe;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use IvoPetkov\HTML5DOMDocument;
-use Illuminate\Support\Str;
-use Livewire\Attributes\Url;
 
 class Recipe extends Component
 {
@@ -97,7 +95,8 @@ class Recipe extends Component
     {
         $replacements = [
             '/ \| HelloFresh/i' => '',
-            '/TIP:/i' => '<br /><br />TIP:',
+            '/TIP: (.*)/i' => '<div class="alert alert-info mt-3"><i class="bi-info-circle-fill"></i> TIP: $1</div>',
+            '/Little cooks: (.*)/i' => '<div class="alert alert-dark mt-3"><i class="bi bi-person-arms-up"></i> Little cooks: $1</div>',
             '/•/i' => '<br /><br />•',
             '/(\d+) minutes/i' => '$1 minutes (<a onclick="window.setCookingTimer($1)" href="javascript:void(0)">Set Timer</a>)'
         ];

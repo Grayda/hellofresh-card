@@ -1,13 +1,23 @@
-<div>
+<span>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-8">
-                <p>{{ $this-> recipe_description[0]['text']}}</p>
-            </div>
-            <div class="col-4">
+            <div class="col">
                 <a wire:click.prevent="setColumns(2)" class="btn btn-secondary">Two Columns</a>
                 <a wire:click.prevent="setColumns(3)" class="btn btn-secondary">Three Columns</a>
                 <a wire:click.prevent="toggleImages" class="btn btn-secondary">Show / Hide Images</a>
+            </div>                
+        </div>
+        <div class="row mt-3">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <p>{{ $this-> recipe_description[0]['text']}}</p>
+                    </div>
+                    <div class="card-footer">
+                        <small>Original URL: <a href="{{ $recipe->url }}" target="_blank">{{ $recipe->url }}</a></small>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </div>
@@ -18,30 +28,40 @@
         <div class="row row-cols-1 row-cols-md-{{ $columns }} g-4">
             @foreach($this->recipe_ingredients as $index => $ingredient)
             <div class="col">
-                <div class="card h-100 text-bg-secondary mb-3" onclick="this.classList.toggle('text-bg-success')">
+                <div class="card h-100 text-bg-secondary mb-3">
                     @if($ingredient['image'])
                     <img src="{{ $ingredient['image'] && $images }}" class="card-img-top" alt="...">
                     @endif
                     <div class="card-body">
                         <h5 class="card-title">{{ $ingredient['text'] }}</h5>
                     </div>
+                    @if($ingredient['subtitle'])
                     <div class="card-footer">
                         <small>{{ $ingredient['subtitle'] ?? '' }}</small>
+                    </div>
+                    @endif
+                    <div class="card-footer" onclick="this.parentElement.classList.toggle('text-bg-success')">
+                        <a href="javascript:void(0)" class="btn stretched-link d-block">Mark as Done</a>
                     </div>
                 </div>
             </div>
             @endforeach
             @foreach($this->pantry_ingredients as $index => $ingredient)
             <div class="col">
-                <div class="card h-100 text-bg-secondary mb-3" onclick="this.classList.toggle('text-bg-success')">
+                <div class="card h-100 text-bg-secondary mb-3">
                     @if($ingredient['image'] && $images)
                     <img src="{{ $ingredient['image'] }}" class="card-img-top" alt="...">
                     @endif
                     <div class="card-body">
                         <h5 class="card-title">{{ $ingredient['text'] }}</h5>
                     </div>
+                    @if($ingredient['subtitle'])
                     <div class="card-footer">
                         <small>{{ $ingredient['subtitle'] ?? '' }}</small>
+                    </div>
+                    @endif
+                    <div class="card-footer" onclick="this.parentElement.classList.toggle('text-bg-success')">
+                        <a href="javascript:void(0)" class="btn stretched-link d-block">Mark as Done</a>
                     </div>
                 </div>
             </div>
@@ -54,13 +74,16 @@
         <div class="row row-cols-1 row-cols-md-{{ $columns }} g-4">
             @foreach($this->recipe_steps as $index => $step)
             <div class="col">
-                <div class="card h-100" onclick="this.classList.toggle('text-bg-success')">
+                <div class="card h-100">
                     @if($step['image'] && $images)
                     <img src="{{ $step['image'] }}" class="card-img-top" alt="...">
                     @endif
                     <div class="card-header">Step {{ $index + 1 }}</div>
                     <div class="card-body">
                         <h5 class="card-title">{!! $step['text'] !!}</h5>
+                    </div>
+                    <div class="card-footer" onclick="this.classList.toggle('text-bg-success')">
+                        <a href="javascript:void(0)" class="btn d-block">Mark as Done</a>
                     </div>
                 </div>
             </div>
@@ -79,11 +102,10 @@
             let timers = [];
 
             window.setCookingTimer = function (minutes) {
-                minutes = 0.05
                 const timerId = timers.length + 1;
                 const endTime = Date.now() + minutes * 60000;
                 const timerDiv = document.createElement('div');
-                timerDiv.className = 'alert alert-warning timer';
+                timerDiv.className = 'alert pt-3 alert-warning timer';
                 timerDiv.id = 'timer-' + timerId;
                 const sound = new Audio('path/to/sound.mp3');
                 sound.loop = true;
@@ -127,4 +149,4 @@
 
 
     </script>
-</div>
+</span>
