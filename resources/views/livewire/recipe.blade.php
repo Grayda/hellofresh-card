@@ -23,7 +23,7 @@
 
     <h2>Ingredients</h2>
     <div class="container-fluid">
-        <div class="row row-cols-1 row-cols-md-{{ $columns }} g-4">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
             @foreach($this->recipe_ingredients as $index => $ingredient)
             <div class="col">
                 <div class="card h-100 text-bg-secondary mb-3">
@@ -31,13 +31,9 @@
                     <img src="{{ $ingredient['image'] && $images }}" class="card-img-top" alt="...">
                     @endif
                     <div class="card-body">
-                        <h5 class="card-title">{{ $ingredient['text'] }}</h5>
+                        <h5 class="card-title">{{ $ingredient['text'] }}</h5> 
+                        @if($ingredient['subtitle'])<small>{{ $ingredient['subtitle'] ?? '' }}</small>@endif
                     </div>
-                    @if($ingredient['subtitle'])
-                    <div class="card-footer">
-                        <small>{{ $ingredient['subtitle'] ?? '' }}</small>
-                    </div>
-                    @endif
                     <div class="card-footer" onclick="this.parentElement.classList.toggle('text-bg-success')">
                         <a href="javascript:void(0)" class="btn stretched-link d-block">Mark as Done</a>
                     </div>
@@ -51,13 +47,10 @@
                     <img src="{{ $ingredient['image'] }}" class="card-img-top" alt="...">
                     @endif
                     <div class="card-body">
-                        <h5 class="card-title">{{ $ingredient['text'] }}</h5>
+                        <h5 class="card-title">{{ $ingredient['text'] }}</h5> 
+                        @if($ingredient['subtitle'])<small>{{ $ingredient['subtitle'] ?? '' }}</small>@endif
                     </div>
-                    @if($ingredient['subtitle'])
-                    <div class="card-footer">
-                        <small>{{ $ingredient['subtitle'] ?? '' }}</small>
-                    </div>
-                    @endif
+                    
                     <div class="card-footer" onclick="this.parentElement.classList.toggle('text-bg-success')">
                         <a href="javascript:void(0)" class="btn stretched-link d-block">Mark as Done</a>
                     </div>
@@ -137,6 +130,8 @@
                         timerDiv.classList.remove('alert-danger');
                         timerDiv.classList.remove('alert-warning');
                         timerDiv.classList.add('alert-success');
+                    } else if (timerDiv.classList.contains('alert-success')) {
+                        timerDiv.remove()
                     }
                 });
 
