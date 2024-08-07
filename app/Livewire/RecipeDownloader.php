@@ -13,6 +13,8 @@ class RecipeDownloader extends Component
 
     #[Url]
     public $url = '';
+    #[Url]
+    public $download; // If this is set to 1, download() is called on page load
     public $recipe;
     public $search = 'Test';
 
@@ -24,6 +26,12 @@ class RecipeDownloader extends Component
         if(!$this->url) {
             return;
         }
+
+        // Fix the URL if it doesn't have http at the start
+        if(!Str::of($this->url)->startsWith('http')) {
+            $this->url = 'https://' . $this->url;
+        }
+
         $this->recipe = new Recipe;
         $recipe_html = file_get_contents($this->url);
 
@@ -46,6 +54,13 @@ class RecipeDownloader extends Component
 
     }
 
+    public function mount() {
+        // If download = 1 and there's a URL, just download immediately
+        if($this->download == '1' && $this->url) {
+            $this->download();
+            $this->redirect('/');
+        }
+    }
 
     public function render()
     {
