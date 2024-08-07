@@ -3,20 +3,19 @@
         <div class="row">
             <div class="col-6">
                 <h3>Recipe Downloader</h3>
-                <form wire:submit="download">
+                <form wire:submit="downloadRecipe">
 
                     <div class="form-group">
                         <label for="url" class="form-label">URL of recipe</label>
                         <input type="url" wire:model="url" class="form-control form-control-lg"
-                            placeholder="https://hellofresh.com.au/...">
+                            placeholder="https://hellofresh.com.au/recipes/...">
                         <button type="submit" class="btn btn-lg btn-success mt-3" wire:click="download"><i
                                 class="bi-cloud-plus-fill"></i> Download</button>
                     </div>
+                    <div class="alert alert-success" wire:loading>
+                        <i class="bi-cloud-arrow-down-fill"></i> Downloading..
+                    </div>
                 </form>
-                <div class="alert alert-success" wire:loading>
-                    <i class="bi-cloud-arrow-down-fill"></i> Downloading..
-                </div>
-
             </div>
             <div class="col-6">
                 <h3>How to use</h3>

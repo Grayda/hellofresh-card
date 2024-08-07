@@ -13,8 +13,9 @@ class RecipeDownloader extends Component
 
     #[Url]
     public $url = '';
+    
     #[Url]
-    public $download; // If this is set to 1, download() is called on page load
+    public $download = 0; // If this is set to 1, download() is called on page load
     public $recipe;
     public $search = 'Test';
 
@@ -22,7 +23,7 @@ class RecipeDownloader extends Component
         Recipe::truncate();
     }
 
-    public function download() {
+    public function downloadRecipe() {
         if(!$this->url) {
             return;
         }
@@ -32,6 +33,7 @@ class RecipeDownloader extends Component
             $this->url = 'https://' . $this->url;
         }
 
+        
         $this->recipe = new Recipe;
         $recipe_html = file_get_contents($this->url);
 
@@ -44,7 +46,7 @@ class RecipeDownloader extends Component
         // Then find the description
         $this->recipe->description = $document->querySelector('[data-test-id="description-body-title"]')->textContent;
         $this->recipe->title = Str::of($title->getAttribute('content'))->replace(' | HelloFresh', '');
-        $this->recipe->content = $recipe_html;
+        $this->recipe->content = $document->querySelector('[data-test-id="universal-layout"]');
         $this->recipe->url = $this->url;
         $this->recipe->image_url = $document->querySelector('meta[property="og:image"]')->getAttribute('content');
         
