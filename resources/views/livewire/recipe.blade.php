@@ -2,9 +2,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col">
-                <a wire:click.prevent="setColumns(2)" class="btn btn-secondary">Two Columns</a>
-                <a wire:click.prevent="setColumns(3)" class="btn btn-secondary">Three Columns</a>
-                <a wire:click.prevent="toggleImages" class="btn btn-secondary">Show / Hide Images</a>
+                <a wire:confirm="Are you sure you want to remove this recipe?" wire:click.prevent="deleteRecipe" class="btn btn-danger">Remove Recipe</a>
             </div>                
         </div>
         <div class="row mt-3">

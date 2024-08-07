@@ -24,6 +24,11 @@ class Recipe extends Component
     public function toggleImages() {
         $this->images = !$this->images;
     }
+    
+    public function deleteRecipe() {
+        $this->recipe->delete();
+        $this->redirect('/');
+    }
 
     private function getParagraphs($data_test_id)
     {
