@@ -101,13 +101,13 @@
         (function () {
             let timers = [];
 
-            window.setCookingTimer = function (minutes) {
-                const timerId = timers.length + 1;
+            window.setCookingTimer = function (minutes, name = null) {
+                const timerId = name ?? timers.length + 1;
                 const endTime = Date.now() + minutes * 60000;
                 const timerDiv = document.createElement('div');
                 timerDiv.className = 'alert pt-3 alert-warning timer';
                 timerDiv.id = 'timer-' + timerId;
-                const sound = new Audio('path/to/sound.mp3');
+                const sound = new Audio('/storage/beep.mp3');
                 sound.loop = true;
 
                 function updateTimer() {

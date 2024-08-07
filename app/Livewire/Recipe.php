@@ -48,11 +48,11 @@ class Recipe extends Component
             $textContents = [];
             foreach ($ps as $index => $p) {
                 if ($index >= 2) {
-                    $smallerText[] = trim($this->fixRecipeText($p->textContent));
+                    $smallerText[] = trim($this->fixRecipeText($p->getTextContent()));
                     continue;
                 }
 
-                $textContents[] = trim($this->fixRecipeText($p->textContent));
+                $textContents[] = trim($this->fixRecipeText($p->getTextContent()));
             }
 
             // Combine the P tags' text contents
@@ -98,14 +98,14 @@ class Recipe extends Component
             '/TIP: (.*)/i' => '<div class="alert alert-info mt-3"><i class="bi-info-circle-fill"></i> TIP: $1</div>',
             '/Little cooks: (.*)/i' => '<div class="alert alert-dark mt-3"><i class="bi bi-person-arms-up"></i> Little cooks: $1</div>',
             '/•/i' => '<br /><br />•',
-            '/(\d+) minutes/i' => '$1 minutes (<a onclick="window.setCookingTimer($1)" href="javascript:void(0)">Set Timer</a>)'
+            // This finds all the timers (e.g. '20-25 minutes', '10 minutes', but NOT 'last 5 minutes') and converts them into clickable timer links
+            '/(?<!last )(\d*(?:-|—)?(\d+)+ minute(?:s)?)/i' => '<a class="btn btn-success" onclick="window.setCookingTimer($2)" href="javascript:void(0)"><i class="bi bi-stopwatch-fill"></i> $1</a>'
         ];
 
         // $regex, $with, $stringtoreplace
 
         foreach ($replacements as $find => $replace) {
             $text = preg_replace($find, $replace, $text);
-            // $text = Str::of($text)->replace($find, $replace);
         }
 
         return $text;
