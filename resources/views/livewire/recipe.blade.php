@@ -1,7 +1,7 @@
 <span>
     <div class="container-fluid">
         <div class="row">
-            <div class="col">
+            <div class="col d-flex justify-content-end">
                 <a wire:confirm="Are you sure you want to remove this recipe?" wire:click.prevent="deleteRecipe" class="btn btn-danger">Remove Recipe</a>
             </div>                
         </div>
