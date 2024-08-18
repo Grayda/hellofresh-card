@@ -59,7 +59,7 @@ class RecipeDownloader extends Component
     public function mount() {
         // If download = 1 and there's a URL, just download immediately
         if($this->download == '1' && $this->url) {
-            $this->download();
+            $this->downloadRecipe();
             $this->redirect('/');
         }
     }
