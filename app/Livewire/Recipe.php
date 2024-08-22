@@ -103,7 +103,7 @@ class Recipe extends Component
             '/TIP: (.*)/i' => '<div class="alert alert-info mt-3"><i class="bi-info-circle-fill"></i> TIP: $1</div>', // Turns the TIP: box into a bootstrap alert
             '/Little cooks: (.*)/i' => '<div class="alert alert-dark mt-3"><i class="bi bi-person-arms-up"></i> Little cooks: $1</div>', // Same thing, but with the Little Cooks text
             '/•/i' => '<br /><br />•', // Finds the bulletpoints which are on the same line for some reason, and put them all on their own line for readability
-            '/(?<!last )(\d{1,2})(?:-|—)?\d{0,2}(?= minutes?)/i' => '<a class="btn btn-success" onclick="window.setCookingTimer($1)" href="javascript:void(0)"><i class="bi bi-stopwatch-fill"></i> $1 minutes</a>' // Finds all the times (e.g. '20-25 minutes' and converts them into clickable timer links
+            '/(?:\d+-)?(\d+) (minutes|minute)/i' => '<a class="btn btn-success" onclick="window.setCookingTimer($1)" href="javascript:void(0)"><i class="bi bi-stopwatch-fill"></i> $1 $2</a>' // Finds all the times (e.g. '20-25 minutes' and converts them into clickable timer links
         ];
 
         // Loop through all the replacements in the recipe step and fix them up
