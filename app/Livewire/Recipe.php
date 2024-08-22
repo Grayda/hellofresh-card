@@ -99,16 +99,14 @@ class Recipe extends Component
     private function fixRecipeText($text)
     {
         $replacements = [
-            '/ \| HelloFresh/i' => '',
-            '/TIP: (.*)/i' => '<div class="alert alert-info mt-3"><i class="bi-info-circle-fill"></i> TIP: $1</div>',
-            '/Little cooks: (.*)/i' => '<div class="alert alert-dark mt-3"><i class="bi bi-person-arms-up"></i> Little cooks: $1</div>',
-            '/•/i' => '<br /><br />•',
-            // This finds all the timers (e.g. '20-25 minutes', '10 minutes', but NOT 'last 5 minutes') and converts them into clickable timer links
-            '/(?<!last )(\d*(?:-|—)?(\d+)+ minute(?:s)?)/i' => '<a class="btn btn-success" onclick="window.setCookingTimer($2)" href="javascript:void(0)"><i class="bi bi-stopwatch-fill"></i> $1</a>'
+            '/ \| HelloFresh/i' => '', // Find the | HelloFresh header which is present at the end of the page title or metadata, and remove it
+            '/TIP: (.*)/i' => '<div class="alert alert-info mt-3"><i class="bi-info-circle-fill"></i> TIP: $1</div>', // Turns the TIP: box into a bootstrap alert
+            '/Little cooks: (.*)/i' => '<div class="alert alert-dark mt-3"><i class="bi bi-person-arms-up"></i> Little cooks: $1</div>', // Same thing, but with the Little Cooks text
+            '/•/i' => '<br /><br />•', // Finds the bulletpoints which are on the same line for some reason, and put them all on their own line for readability
+            '/(?<!last )(\d{1,2})(?:-|—)?\d{0,2}(?= minutes?)/i' => '<a class="btn btn-success" onclick="window.setCookingTimer($1)" href="javascript:void(0)"><i class="bi bi-stopwatch-fill"></i> $1 minutes</a>' // Finds all the times (e.g. '20-25 minutes' and converts them into clickable timer links
         ];
 
-        // $regex, $with, $stringtoreplace
-
+        // Loop through all the replacements in the recipe step and fix them up
         foreach ($replacements as $find => $replace) {
             $text = preg_replace($find, $replace, $text);
         }
